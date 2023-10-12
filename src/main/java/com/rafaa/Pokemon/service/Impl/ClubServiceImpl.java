@@ -5,9 +5,11 @@ import com.rafaa.Pokemon.model.Club;
 import com.rafaa.Pokemon.repository.ClubRepository;
 import com.rafaa.Pokemon.service.ClubService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ClubServiceImpl implements ClubService {
     private ClubRepository clubRepository;
     @Autowired
