@@ -2,19 +2,21 @@ package com.rafaa.Pokemon.controller;
 
 import com.rafaa.Pokemon.dto.ClubDto;
 import com.rafaa.Pokemon.model.Club;
+import com.rafaa.Pokemon.service.ClubService;
 import com.rafaa.Pokemon.service.Impl.ClubServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
 @Controller
 public class ClubController {
-   private ClubServiceImpl clubService;
+   private ClubService clubService;
    @Autowired
    public ClubController(ClubServiceImpl clubService) {
        this.clubService = clubService;
@@ -35,5 +37,17 @@ public class ClubController {
     public String saveClub(@ModelAttribute("club") Club club ){
        clubService.saveClub(club);
        return "redirect:/clubs";
+    }
+    @GetMapping("/clubs/{clubId}/edit")
+    public String editClubForm(@PathVariable("clubId") long clubId, Model model){
+        ClubDto club = clubService.findClubById(clubId);
+        model.addAttribute("club", club);
+        return "clubs-edit";
+    }
+    @PostMapping("/clubs/{clubId}/edit")
+    public String updateClub(@PathVariable("clubId") long clubId, @ModelAttribute("club") ClubDto club ){
+        club.setId(clubId);
+        clubService.updateClub(club);
+        return "redirect:/clubs";
     }
 }
