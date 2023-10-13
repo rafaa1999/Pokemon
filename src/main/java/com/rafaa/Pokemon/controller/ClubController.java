@@ -22,4 +22,8 @@ public class ClubController {
        model.addAttribute("clubs", clubDtos);
        return "club-list";
     }
+    @GetMapping("/layout")
+    public String goToLayout(){
+       return "layout";
+    }
 }
